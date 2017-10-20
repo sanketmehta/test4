@@ -8,7 +8,6 @@ from sqlalchemy import create_engine, func
 
 # Grab connection URL from local environment variables
 connection_var = os.environ.get("mysql_connection")
-print(connection_var)
 engine = create_engine(connection_var)
 
 # Uses local config file
