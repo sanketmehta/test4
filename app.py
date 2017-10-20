@@ -21,6 +21,7 @@ engine = create_engine(connection_var)
 Base = automap_base()
 # reflect the tables
 Base.prepare(engine, reflect=True)
+print(Base.classes.keys())
 
 # Save reference to the table
 IceCreamFlavors = Base.classes.icecreamstore
