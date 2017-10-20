@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
 # Grab connection URL from local environment variables
-connection_var = os.environ.get("mysql_connection")
+connection_var = os.environ.get("mysql_connection1")
 engine = create_engine(connection_var)
 
 # Uses local config file
@@ -23,11 +23,26 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save reference to the table
-IceCreamFlavors = Base.classes.ice_cream_flavors
+IceCreamFlavors = Base.classes.icecreamstore
 # Avengers = Base.classes.avengers
 
 # Create our session (link) from Python to the DB
 session = Session(engine)
+
+# results = session.query(IceCreamFlavors).all()
+# # Convert list of tuples into normal list
+# all_flavors = []
+# for flavor in results:
+#     print(flavor.Flavors)
+#     print(flavor.Quantities)
+#     print(flavor.Price)
+#     flavor_dict = {}
+#     flavor_dict["flavor"] = flavor.Flavors
+#     flavor_dict["quantities"] = float(flavor.Quantities)
+#     flavor_dict["price"] = float(flavor.Price)
+#     all_flavors.append(flavor_dict)
+
+# print(all_flavors)
 
 # Flask setup
 app = Flask(__name__)
@@ -44,14 +59,13 @@ def all_justice():
     print("Retrieving ice_cream_flavors API")
     # Query all passengers
     results = session.query(IceCreamFlavors).all()
-
     # Convert list of tuples into normal list
     all_flavors = []
     for flavor in results:
         flavor_dict = {}
-        flavor_dict["flavor"] = flavor.flavour
-        flavor_dict["rating"] = flavor.rating
-        flavor_dict["price"] = flavor.price
+        flavor_dict["flavor"] = flavor.Flavors
+        flavor_dict["quantities"] = float(flavor.Quantities)
+        flavor_dict["price"] = float(flavor.Price)
         all_flavors.append(flavor_dict)
 
     return jsonify(all_flavors)
