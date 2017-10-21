@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
 # Grab connection URL from local environment variables
-connection_var = os.environ.get("mysql_connection1")
+connection_var = os.environ.get("mysql_connection")
 engine = create_engine(connection_var)
 
 # Uses local config file
