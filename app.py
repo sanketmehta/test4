@@ -21,29 +21,13 @@ engine = create_engine(connection_var)
 Base = automap_base()
 # reflect the tables
 Base.prepare(engine, reflect=True)
-print(Base.classes.keys())
 
 # Save reference to the table
-IceCreamFlavors = Base.classes.icecreamstore
+IceCreamFlavors = Base.classes.ice_cream_flavors
 # Avengers = Base.classes.avengers
 
 # Create our session (link) from Python to the DB
 session = Session(engine)
-
-# results = session.query(IceCreamFlavors).all()
-# # Convert list of tuples into normal list
-# all_flavors = []
-# for flavor in results:
-#     print(flavor.Flavors)
-#     print(flavor.Quantities)
-#     print(flavor.Price)
-#     flavor_dict = {}
-#     flavor_dict["flavor"] = flavor.Flavors
-#     flavor_dict["quantities"] = float(flavor.Quantities)
-#     flavor_dict["price"] = float(flavor.Price)
-#     all_flavors.append(flavor_dict)
-
-# print(all_flavors)
 
 # Flask setup
 app = Flask(__name__)
@@ -64,9 +48,9 @@ def all_justice():
     all_flavors = []
     for flavor in results:
         flavor_dict = {}
-        flavor_dict["flavor"] = flavor.Flavors
-        flavor_dict["quantities"] = float(flavor.Quantities)
-        flavor_dict["price"] = float(flavor.Price)
+        flavor_dict["flavor"] = flavor.flavour
+        flavor_dict["rating"] = flavor.rating
+        flavor_dict["price"] = float(flavor.price)
         all_flavors.append(flavor_dict)
 
     return jsonify(all_flavors)
